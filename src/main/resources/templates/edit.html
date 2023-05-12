@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit telecast</title>
+</head>
+<body>
+<h3>Edit telecast</h3>
+<div class="container mt-5">
+  <form method="post">
+    <input type="text" name="name" th:value="${telecast.getName()}"><br>
+    <input type="text" name="chanel" th:value="${telecast.getChanelName()}" ><br>
+    <input type="datetime-local" name="startDateTime" th:value="${telecast.getStartDateTime()}"><br>
+    <textarea name="description" th:text="${telecast.getDescription()}"></textarea><br>
+    <button type="submit" class="button button-success">Add</button>
+  </form>
+</div>
+</body>
+</html>
