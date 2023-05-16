@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
 </head>
 <body>
 <div th:insert="fragments/header::header"></div>
-
+<h1 th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 <p>Sort</p>
 <a th:href="@{/telecast?sort='BY_START'}">By start</a>
 <a th:href="@{/telecast?sort='BY_NAME'}">By name</a>
