@@ -4,6 +4,7 @@ import com.example.coursework.model.Telecast;
 import com.example.coursework.repository.TelecastRepository;
 import com.example.coursework.services.TelecastService;
 import com.example.coursework.services.TelecastServiceImpl;
+import com.example.coursework.services.TelecastSortCriteria;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +28,14 @@ public class FrontController {
         return "home";
     }
     @GetMapping("/telecast")
-    protected String telecast(Model model) {
-        Iterable<Telecast> telecasts = telecastService.getAllTelecasts();
+    protected String telecast(Model model, @RequestParam(value = "sort", required = false) String sort) {
+        Iterable<Telecast> telecasts;
+        if (sort!=null){
+            TelecastSortCriteria sortCriteria = TelecastSortCriteria.valueOf(sort.toUpperCase().substring(1,sort.length()-1));
+             telecasts = telecastService.getAllTelecasts(sortCriteria);
+        } else {
+            telecasts = telecastService.getAllTelecasts();
+        }
         model.addAttribute("telecasts", telecasts);
         return "telecast";
     }

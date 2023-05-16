@@ -7,6 +7,10 @@
 <body>
 <div th:insert="fragments/header::header"></div>
 
+<p>Sort</p>
+<a th:href="@{/telecast?sort='BY_START'}">By start</a>
+<a th:href="@{/telecast?sort='BY_NAME'}">By name</a>
+<a th:href="@{/telecast?sort='BY_CHANEL'}">By chanel</a>
 <div class="alert alert-info mt-2" th:each="telecast : ${telecasts}">
     <h1 th:text="${telecast.getName()}"></h1>
     <h2 th:text="${telecast.getChanelName()}"></h2>
