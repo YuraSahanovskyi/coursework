@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="java">
+<html lang="java" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="utf-8">
     <title>Main page</title>
@@ -12,10 +13,12 @@
 </head>
 <body>
 
-<div th:insert="fragments/header::header"></div>
+<div th:insert="~{fragments/header::header}"></div>
 
 <h1>Home page</h1>
-
+<p sec:authorize="hasAuthority('ADMIN')">Hello Admin, it works!!!</p>
+<span sec:authentication="name"></span>
+<span sec:authentication="authorities"></span>
 
 <script
         crossorigin="anonymous"
