@@ -8,26 +8,19 @@ import com.example.coursework.services.TelecastSortCriteria;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
 @Controller
-public class FrontController {
-    public FrontController(TelecastRepository telecastRepository) {
+@RequestMapping("/telecast")
+public class TelecastController {
+    public TelecastController(TelecastRepository telecastRepository) {
         this.telecastService = new TelecastServiceImpl(telecastRepository);
     }
     private final TelecastService telecastService;
 
-
-    @GetMapping("/")
-    protected String home() {
-        return "home";
-    }
-    @GetMapping("/telecast")
+    @GetMapping()
     protected String telecast(Model model, @RequestParam(value = "sort", required = false) String sort) {
         Iterable<Telecast> telecasts;
         if (sort!=null){

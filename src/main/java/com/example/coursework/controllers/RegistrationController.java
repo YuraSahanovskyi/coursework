@@ -8,11 +8,14 @@ import com.example.coursework.services.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/registration")
 public class RegistrationController {
     private final UserService userService;
 
@@ -20,18 +23,21 @@ public class RegistrationController {
         this.userService = new UserServiceImpl(userRepository);
     }
 
-    @GetMapping("/registration")
+    @GetMapping()
     protected String registration() {
         return "registration";
     }
-    @PostMapping("/registration")
-    protected String registerUser(User user, Map<String, Object> model) {
-        if (userService.isExist(user)) {
+    @PostMapping()
+    protected String registerUser(@RequestParam String username, @RequestParam String password, @RequestParam String role, Map<String, Object> model) {
+        if (userService.isExist(username)) {
             model.put("message","User exist!");
             return "registration";
         }
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
         user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
+        user.setRoles(Collections.singleton(Role.valueOf(role.toUpperCase().trim())));
         userService.add(user);
         return "redirect:/login";
     }
