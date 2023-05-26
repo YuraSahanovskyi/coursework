@@ -2,6 +2,8 @@ package com.example.coursework.services;
 
 import com.example.coursework.model.User;
 import com.example.coursework.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
@@ -21,6 +23,13 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getByName(String username) {
         return userRepository.findByUsername(username).orElse(null);
+    }
+
+    @Override
+    public User getByAuth(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+        return userRepository.findByUsername(username).orElseThrow();
     }
 
     @Override

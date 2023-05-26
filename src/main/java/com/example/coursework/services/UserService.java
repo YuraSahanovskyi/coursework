@@ -1,10 +1,12 @@
 package com.example.coursework.services;
 
 import com.example.coursework.model.User;
+import org.springframework.security.core.Authentication;
 
 public interface UserService {
     User getById(Long id);
     User getByName(String username);
+    User getByAuth(Authentication authentication);
     void add(User user);
     void edit(Long id, String username, String password);
     void delete(Long id);

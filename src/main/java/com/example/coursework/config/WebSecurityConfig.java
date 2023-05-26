@@ -24,7 +24,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/registration").permitAll()
-                        .requestMatchers("/telecast").hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers("/telecast","/user/**").authenticated()
                         .requestMatchers("/telecast/**").hasAuthority("ADMIN")
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .anyRequest().authenticated()

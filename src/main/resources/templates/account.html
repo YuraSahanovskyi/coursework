@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Account</title>
+</head>
+<body>
+<p>Hello <span th:value="${user.getUsername()}"></span>!</p>
+<div>
+  <h3 th:if="message!=null">
+    <span th:value="message"></span>
+  </h3>
+  <form method="post" th:action="@{/user/edit}">
+    <div><label> Your Name : <input name="username" type="text" th:value="${user.getUsername()}"/> </label></div>
+    <div><label> Password: <input name="password" type="password" th:value="${user.getPassword()}"/> </label></div>
+    <div><input type="submit" value="Save"/></div>
+  </form>
+</div>
+</body>
+</html>
