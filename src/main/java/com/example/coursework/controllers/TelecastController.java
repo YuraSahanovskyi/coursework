@@ -42,7 +42,7 @@ public class TelecastController {
                          @RequestParam String description) {
         Telecast telecast = new Telecast(name, chanel, startDateTime, description);
         telecastService.add(telecast);
-        return "redirect:/add";
+        return "redirect:/telecast/add";
     }
     @GetMapping("/edit/{id}")
     protected String editForm(@PathVariable(value = "id") long id, Model model) {

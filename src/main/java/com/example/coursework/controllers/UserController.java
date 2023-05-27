@@ -44,6 +44,6 @@ public class UserController {
         } else {
             userService.add(user);
         }
-        return "redirect:/login";
+        return "redirect:/logout";
     }
 }

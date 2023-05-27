@@ -1,4 +1,5 @@
-<div th:fragment="header">
+<div th:fragment="header"  lang="java" xmlns:th="https://www.thymeleaf.org"
+                                xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
         <div class="col-md-3 mb-2 mb-md-0">
             <a class="d-inline-flex link-body-emphasis text-decoration-none" href="/">
@@ -11,14 +12,19 @@
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a class="nav-link px-2 link-secondary" href="/">Home</a></li>
             <li><a class="nav-link px-2" href="/telecast">Telecast</a></li>
-            <li><a class="nav-link px-2" href="/user/account">Account</a></li>
-            <li><a class="nav-link px-2" href="/telecast/add">Add telecast</a></li>
+            <li sec:authorize="isAuthenticated()"><a class="nav-link px-2" href="/user/account">Account</a></li>
+            <li sec:authorize="hasAuthority('ADMIN')"><a class="nav-link px-2" href="/telecast/add">Add telecast</a></li>
         </ul>
 
-        <div class="col-md-3 text-end">
+        <div class="col-md-3 text-end" sec:authorize="isAnonymous()">
             <button class="btn btn-outline-primary me-2"
                     type="button"><a class="nav-link px-2" href="/login">Log In</a></button>
-            <button class="btn btn-primary" type="button"><a class="nav-link px-2" href="/signup">Sign up</a></button>
+            <button class="btn btn-primary" type="button"><a class="nav-link px-2" href="/registration">Sign up</a></button>
+        </div>
+        <div class="col-md-3 text-end" sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Log Out"/>
+            </form>
         </div>
     </header>
 </div>

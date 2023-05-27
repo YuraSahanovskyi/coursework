@@ -32,6 +32,7 @@ public class WebSecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
+                        .defaultSuccessUrl("/")
                 )
                 .logout(LogoutConfigurer::permitAll)
                 .csrf().disable();
