@@ -27,10 +27,14 @@ public class RegistrationController {
     protected String registration() {
         return "registration";
     }
+
     @PostMapping()
-    protected String registerUser(@RequestParam String username, @RequestParam String password, @RequestParam String role, Map<String, Object> model) {
+    protected String registerUser(@RequestParam String username,
+                                  @RequestParam String password,
+                                  @RequestParam String role,
+                                  Map<String, Object> model) {
         if (userService.isExist(username)) {
-            model.put("message","User exist!");
+            model.put("message", "User exist!");
             return "registration";
         }
         User user = new User();

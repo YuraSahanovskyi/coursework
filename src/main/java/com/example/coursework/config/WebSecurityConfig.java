@@ -17,8 +17,12 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
+
+    public WebSecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -32,7 +36,7 @@ public class WebSecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/", true)
                 )
                 .logout(LogoutConfigurer::permitAll)
                 .csrf().disable();
