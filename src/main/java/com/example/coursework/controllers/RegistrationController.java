@@ -31,7 +31,6 @@ public class RegistrationController {
     @PostMapping()
     protected String registerUser(@RequestParam String username,
                                   @RequestParam String password,
-                                  @RequestParam String role,
                                   Map<String, Object> model) {
         if (userService.isExist(username)) {
             model.put("message", "User exist!");
@@ -41,7 +40,7 @@ public class RegistrationController {
         user.setUsername(username);
         user.setPassword(password);
         user.setActive(true);
-        user.setRoles(Collections.singleton(Role.valueOf(role.toUpperCase().trim())));
+        user.setRoles(Collections.singleton(Role.USER));
         userService.add(user);
         return "redirect:/login";
     }

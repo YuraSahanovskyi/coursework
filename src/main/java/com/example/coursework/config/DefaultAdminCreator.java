@@ -28,6 +28,7 @@ public class DefaultAdminCreator implements ApplicationRunner {
             adminRoles.add(Role.USER);
             adminRoles.add(Role.ADMIN);
             admin.setRoles(adminRoles);
+            admin.setActive(true);
             userRepository.save(admin);
         }
     }
