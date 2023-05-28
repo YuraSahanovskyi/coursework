@@ -29,8 +29,7 @@
         <div>
             <h2 class="inline-block">Starts at:</h2>
             <h2 class="inline-block">
-                <span th:text="${#temporals.format(telecast.getStartDateTime(), 'HH')}"></span>:
-                <span th:text="${#temporals.format(telecast.getStartDateTime(), 'mm')}"></span>
+                <span th:text="${#temporals.format(telecast.getStartDateTime(), 'HH:mm')}"></span>s
             </h2>
             <h2 class="inline-block">
                 <span th:text="${#temporals.format(telecast.getStartDateTime(), 'dd MMMM yyyy')}"></span>
