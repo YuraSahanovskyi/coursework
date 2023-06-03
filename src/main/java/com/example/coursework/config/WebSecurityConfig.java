@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.sql.DataSource;
 
@@ -18,11 +17,9 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig {
     private final DataSource dataSource;
-    private final AccessDeniedHandler accessDeniedHandler;
 
-    public WebSecurityConfig(DataSource dataSource, AccessDeniedHandler accessDeniedHandler) {
+    public WebSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.accessDeniedHandler = accessDeniedHandler;
     }
 
     @Bean
@@ -35,9 +32,6 @@ public class WebSecurityConfig {
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .anyRequest().authenticated()
                 )
-                .exceptionHandling()
-                    .accessDeniedHandler(accessDeniedHandler)
-                .and()
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()

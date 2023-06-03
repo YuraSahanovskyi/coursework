@@ -6,6 +6,9 @@
 h1 {
     color: #ff0000;
 }
+h3 {
+    color: black;
+}
 
 .btn {
     display: inline-block;
