@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html lang="java" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="java" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>Telecasts</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/telecast.css">
+    <link href="/telecast.css" rel="stylesheet">
 </head>
 <body>
 <div th:insert="fragments/header::header"></div>
 <h1>Telecast</h1>
 <p class="inline-block">Sort:</p>
 <div class="sort-links">
-    <button class="btn btn-primary" th:onclick="|window.location.href='@{/telecast(sort=' BY_START ')}'|">By start</button>
-    <button class="btn btn-primary" th:onclick="|window.location.href='@{/telecast(sort=' BY_NAME ')}'|">By name</button>
-    <button class="btn btn-primary" th:onclick="|window.location.href='@{/telecast(sort=' BY_CHANEL ')}'|">By channel</button>
+    <button class="btn btn-primary" th:onclick="|window.location.href='@{/telecast(sort=' BY_START ')}'|">By start
+    </button>
+    <button class="btn btn-primary" th:onclick="|window.location.href='@{/telecast(sort=' BY_NAME ')}'|">By name
+    </button>
+    <button class="btn btn-primary" th:onclick="|window.location.href='@{/telecast(sort=' BY_CHANEL ')}'|">By channel
+    </button>
 </div>
-<div class="telecast-container" th:classappend="${telecasts.isEmpty()} ? 'alert alert-info mt-2' : ''" th:each="telecast : ${telecasts}">
+<div class="telecast-container" th:classappend="${telecasts.isEmpty()} ? 'alert alert-info mt-2' : ''"
+     th:each="telecast : ${telecasts}">
     <div class="telecast">
         <h1 th:text="${telecast.getName()}"></h1>
         <div>
@@ -35,7 +40,7 @@
                 <span th:text="${#temporals.format(telecast.getStartDateTime(), 'dd MMMM yyyy')}"></span>
             </h2>
         </div>
-        <div sec:authorize="hasAuthority('ADMIN')" class="admin-actions">
+        <div class="admin-actions" sec:authorize="hasAuthority('ADMIN')">
             <a class="btn btn-warning" th:href="@{'/telecast/edit/' + ${telecast.getId()}}">Edit</a>
             <form method="post" th:action="@{'/telecast/delete/' + ${telecast.getId()}}">
                 <button class="btn btn-danger inline-block" type="submit">Delete</button>

@@ -4,10 +4,12 @@ import com.example.coursework.model.User;
 import com.example.coursework.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-public class UserServiceImpl implements UserService{
+@Service
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
@@ -44,9 +46,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void edit(User user, String username, String password) {
-        user.setUsername(username);
-        user.setPassword(password);
-        this.save(user);
+        if (this.isExist(user)) {
+            user.setUsername(username);
+            user.setPassword(password);
+            this.save(user);
+        }
 
     }
 

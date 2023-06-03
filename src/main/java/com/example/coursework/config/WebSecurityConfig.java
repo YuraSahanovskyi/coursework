@@ -27,8 +27,8 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/registration").permitAll()
-                        .requestMatchers("/telecast","/user/account", "/user/edit").authenticated()
-                        .requestMatchers("/telecast/**","/user/**").hasAuthority("ADMIN")
+                        .requestMatchers("/telecast", "/user/account", "/user/edit").authenticated()
+                        .requestMatchers("/telecast/**", "/user/**").hasAuthority("ADMIN")
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -42,6 +42,7 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
     @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth

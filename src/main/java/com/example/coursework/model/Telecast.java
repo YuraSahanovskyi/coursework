@@ -9,16 +9,6 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Telecast {
-    public Telecast(String name, String chanelName, LocalDateTime startDateTime, String description) {
-        this.name = name;
-        this.chanelName = chanelName;
-        this.startDateTime = startDateTime;
-        this.description = description;
-    }
-
-    public Telecast() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,6 +16,14 @@ public class Telecast {
     private String chanelName;
     private LocalDateTime startDateTime;
     private String description;
+    public Telecast(String name, String chanelName, LocalDateTime startDateTime, String description) {
+        this.name = name;
+        this.chanelName = chanelName;
+        this.startDateTime = startDateTime;
+        this.description = description;
+    }
+    public Telecast() {
+    }
 
     public Long getId() {
         return id;

@@ -2,7 +2,7 @@ package com.example.coursework.config;
 
 import com.example.coursework.model.Role;
 import com.example.coursework.model.User;
-import com.example.coursework.repository.UserRepository;
+import com.example.coursework.services.UserService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -12,15 +12,19 @@ import java.util.Set;
 
 @Component
 public class DefaultAdminCreator implements ApplicationRunner {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public DefaultAdminCreator(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public DefaultAdminCreator(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public void run(ApplicationArguments args) {
-        if (userRepository.findByUsername("admin").isEmpty()) {
+        if (userService.isExist("admin")) {
+            User admin = userService.getByName("admin");
+            admin.getRoles().add(Role.ADMIN);
+            userService.save(admin);
+        } else {
             User admin = new User();
             admin.setUsername("admin");
             admin.setPassword("admin");
@@ -29,7 +33,7 @@ public class DefaultAdminCreator implements ApplicationRunner {
             adminRoles.add(Role.ADMIN);
             admin.setRoles(adminRoles);
             admin.setActive(true);
-            userRepository.save(admin);
+            userService.save(admin);
         }
     }
 }
