@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Controller
 @RequestMapping("/telecast")
@@ -21,7 +22,7 @@ public class TelecastController {
 
     @GetMapping()
     protected String telecast(Model model, @RequestParam(value = "sort", required = false) String sort) {
-        Iterable<Telecast> telecasts;
+        Collection<Telecast> telecasts;
         if (sort != null) {
             TelecastSortCriteria sortCriteria = TelecastSortCriteria.valueOf(sort.toUpperCase().substring(1, sort.length() - 1));
             telecasts = telecastService.getAllTelecasts(sortCriteria);
