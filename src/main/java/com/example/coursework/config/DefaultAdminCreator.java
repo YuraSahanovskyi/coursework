@@ -25,14 +25,10 @@ public class DefaultAdminCreator implements ApplicationRunner {
             admin.getRoles().add(Role.ADMIN);
             userService.save(admin);
         } else {
-            User admin = new User();
-            admin.setUsername("admin");
-            admin.setPassword("admin");
             Set<Role> adminRoles = new HashSet<>();
             adminRoles.add(Role.USER);
             adminRoles.add(Role.ADMIN);
-            admin.setRoles(adminRoles);
-            admin.setActive(true);
+            User admin = new User("admin", "admin", true, adminRoles);
             userService.save(admin);
         }
     }

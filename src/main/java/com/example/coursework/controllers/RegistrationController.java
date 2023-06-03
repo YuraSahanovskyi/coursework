@@ -2,9 +2,7 @@ package com.example.coursework.controllers;
 
 import com.example.coursework.model.Role;
 import com.example.coursework.model.User;
-import com.example.coursework.repository.UserRepository;
 import com.example.coursework.services.UserService;
-import com.example.coursework.services.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +16,13 @@ import java.util.Map;
 @RequestMapping("/registration")
 public class RegistrationController {
     private final UserService userService;
+    private final int MIN_USERNAME_LENGTH;
+    private final int MIN_PASSWORD_LENGTH;
 
-    public RegistrationController(UserRepository userRepository) {
-        this.userService = new UserServiceImpl(userRepository);
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+        MIN_USERNAME_LENGTH = 3;
+        MIN_PASSWORD_LENGTH = 5;
     }
 
     @GetMapping()
@@ -36,11 +38,15 @@ public class RegistrationController {
             model.put("message", "User exist!");
             return "registration";
         }
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
+        if (username == null || username.length() < MIN_USERNAME_LENGTH) {
+            model.put("message", "Username must be longer than " + MIN_USERNAME_LENGTH);
+            return "registration";
+        }
+        if (password == null || password.length() < MIN_PASSWORD_LENGTH) {
+            model.put("message", "Password must be longer than " + MIN_PASSWORD_LENGTH);
+            return "registration";
+        }
+        User user = new User(username, password, true, Collections.singleton(Role.USER));
         userService.save(user);
         return "redirect:/login";
     }

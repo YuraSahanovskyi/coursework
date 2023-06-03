@@ -1,9 +1,7 @@
 package com.example.coursework.controllers;
 
 import com.example.coursework.model.Telecast;
-import com.example.coursework.repository.TelecastRepository;
 import com.example.coursework.services.TelecastService;
-import com.example.coursework.services.TelecastServiceImpl;
 import com.example.coursework.services.TelecastSortCriteria;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -17,8 +15,8 @@ import java.time.LocalDateTime;
 public class TelecastController {
     private final TelecastService telecastService;
 
-    public TelecastController(TelecastRepository telecastRepository) {
-        this.telecastService = new TelecastServiceImpl(telecastRepository);
+    public TelecastController(TelecastService telecastService) {
+        this.telecastService = telecastService;
     }
 
     @GetMapping()

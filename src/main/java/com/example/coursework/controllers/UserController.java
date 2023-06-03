@@ -2,9 +2,7 @@ package com.example.coursework.controllers;
 
 import com.example.coursework.model.Role;
 import com.example.coursework.model.User;
-import com.example.coursework.repository.UserRepository;
 import com.example.coursework.services.UserService;
-import com.example.coursework.services.UserServiceImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
     private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userService = new UserServiceImpl(userRepository);
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/account")
