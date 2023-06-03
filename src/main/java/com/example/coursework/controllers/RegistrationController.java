@@ -3,6 +3,7 @@ package com.example.coursework.controllers;
 import com.example.coursework.model.Role;
 import com.example.coursework.model.User;
 import com.example.coursework.services.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +17,13 @@ import java.util.Map;
 @RequestMapping("/registration")
 public class RegistrationController {
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
     private final int MIN_USERNAME_LENGTH;
     private final int MIN_PASSWORD_LENGTH;
 
-    public RegistrationController(UserService userService) {
+    public RegistrationController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
         MIN_USERNAME_LENGTH = 3;
         MIN_PASSWORD_LENGTH = 5;
     }
@@ -46,7 +49,7 @@ public class RegistrationController {
             model.put("message", "Password must be longer than " + MIN_PASSWORD_LENGTH);
             return "registration";
         }
-        User user = new User(username, password, true, Collections.singleton(Role.USER));
+        User user = new User(username, passwordEncoder.encode(password), true, Collections.singleton(Role.USER));
         userService.save(user);
         return "redirect:/login";
     }

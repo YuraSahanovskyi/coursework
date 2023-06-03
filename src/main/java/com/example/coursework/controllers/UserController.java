@@ -5,6 +5,7 @@ import com.example.coursework.model.User;
 import com.example.coursework.services.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/account")
@@ -39,7 +42,7 @@ public class UserController {
             String message = "User exist!";
             model.addAttribute("message", message);
         } else {
-            userService.edit(user, username, password);
+            userService.edit(user, username, passwordEncoder.encode(password));
         }
         return "redirect:/logout";
     }
