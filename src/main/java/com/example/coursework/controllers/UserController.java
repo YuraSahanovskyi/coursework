@@ -1,5 +1,6 @@
 package com.example.coursework.controllers;
 
+import com.example.coursework.model.Role;
 import com.example.coursework.model.User;
 import com.example.coursework.repository.UserRepository;
 import com.example.coursework.services.UserService;
@@ -36,14 +37,33 @@ public class UserController {
                                      Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.getByAuth(authentication);
-        user.setUsername(username);
-        user.setPassword(password);
         if (userService.isExist(username)) {
             String message = "User exist!";
             model.addAttribute("message", message);
         } else {
-            userService.add(user);
+            userService.edit(user, username, password);
         }
         return "redirect:/logout";
+    }
+
+    @GetMapping("/access")
+    protected String getAccessControl(Model model) {
+        Iterable<User> users = userService.getAll();
+        model.addAttribute("users", users);
+        model.addAttribute("adminRole", Role.ADMIN);
+        return "users";
+    }
+
+    @PostMapping("/save")
+    protected String saveRoles(@RequestParam(value = "id") Long id,
+                               @RequestParam(value = "isAdmin", required = false) Boolean isAdmin) {
+        User user = userService.getById(id);
+        if (isAdmin != null && isAdmin) {
+            user.getRoles().add(Role.ADMIN);
+        } else {
+            user.getRoles().remove(Role.ADMIN);
+        }
+        userService.save(user);
+        return "redirect:/user/access";
     }
 }

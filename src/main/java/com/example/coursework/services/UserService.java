@@ -4,11 +4,12 @@ import com.example.coursework.model.User;
 import org.springframework.security.core.Authentication;
 
 public interface UserService {
+    Iterable<User> getAll();
     User getById(Long id);
     User getByName(String username);
     User getByAuth(Authentication authentication);
-    void add(User user);
-    void edit(Long id, String username, String password);
+    void save(User user);
+    void edit(User user, String username, String password);
     void delete(Long id);
     boolean isExist(User user);
     boolean isExist(Long id);

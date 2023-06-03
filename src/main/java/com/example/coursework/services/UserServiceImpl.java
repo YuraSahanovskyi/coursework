@@ -16,6 +16,11 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
+    public Iterable<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
     public User getById(Long id) {
         return userRepository.findById(id).orElseThrow();
     }
@@ -33,16 +38,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void add(User user) {
+    public void save(User user) {
         userRepository.save(user);
     }
 
     @Override
-    public void edit(Long id, String username, String password) {
-        User user = userRepository.findById(id).orElseThrow();
+    public void edit(User user, String username, String password) {
         user.setUsername(username);
         user.setPassword(password);
-        this.add(user);
+        this.save(user);
 
     }
 

@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.user-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.user {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    flex: 0 0 auto;
+}
+
+.user h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.user label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.user input[type="checkbox"] {
+    margin-left: 5px;
+}

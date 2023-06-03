@@ -41,7 +41,7 @@ public class RegistrationController {
         user.setPassword(password);
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
-        userService.add(user);
+        userService.save(user);
         return "redirect:/login";
     }
 }

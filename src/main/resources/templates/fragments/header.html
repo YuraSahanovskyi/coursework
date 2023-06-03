@@ -14,6 +14,7 @@
             <li><a class="nav-link px-2" href="/telecast">Telecast</a></li>
             <li sec:authorize="isAuthenticated()"><a class="nav-link px-2" href="/user/account">Account</a></li>
             <li sec:authorize="hasAuthority('ADMIN')"><a class="nav-link px-2" href="/telecast/add">Add telecast</a></li>
+            <li sec:authorize="hasAuthority('ADMIN')"><a class="nav-link px-2" href="/user/access">Edit access</a></li>
         </ul>
 
         <div class="col-md-3 text-end" sec:authorize="isAnonymous()">
